@@ -1,0 +1,70 @@
+IMDB Design a DB for IMDB 
+1. Movie should have multiple media(Video or Image) 
+2. Movie can belongs to multiple Genre 
+3. Movie can have multiple reviews and Review can belongs to a user 
+4. Artist can have multiple skills 
+5. Artist can perform multiple role in a single film
+
+	CREATE TABLE Movie (
+		id INT AUTO_INCREMENT PRIMARY KEY,
+ 	 	title VARCHAR(255) NOT NULL,
+ 	 	release_date DATE,
+ 	 	image blob,
+ 	 	genres JSON,
+ 	 	reviews JSON
+	);
+
+
+
+	CREATE TABLE Genre (
+  		movie_id INT ,
+ 	 	title VARCHAR(255) NOT NULL,
+  		name VARCHAR(255) NOT NULL
+	);
+
+
+
+	CREATE TABLE Review (
+  		movie_id INT,
+  		user_id INT,
+  		rating INT,
+ 	 	title VARCHAR(255) NOT NULL,
+ 		comment TEXT,
+  		FOREIGN KEY (movie_id) REFERENCES Movie(id),
+  		FOREIGN KEY (user_id) REFERENCES User(id)
+	);
+
+
+
+	CREATE TABLE User (
+  		movie_id INT,
+ 	 	title VARCHAR(255) NOT NULL,
+  		name VARCHAR(255) NOT NULL,
+  		email VARCHAR(255) NOT NULL
+	);
+
+
+
+	CREATE TABLE Artist (
+		movie_id INT,
+ 	 	title VARCHAR(255) NOT NULL,
+		name VARCHAR(255) NOT NULL
+	);
+
+	CREATE TABLE Skill (
+		movie_id INT,
+ 	 	title VARCHAR(255) NOT NULL,
+		skill_name VARCHAR(255) NOT NULL,
+		artist_id INT,
+		FOREIGN KEY (artist_id) REFERENCES Artist(id)
+	);
+
+	CREATE TABLE Performance (
+		movie_id INT,
+ 		artist_id INT,
+ 	 	title VARCHAR(255) NOT NULL,
+ 		role VARCHAR(255),
+ 		FOREIGN KEY (movie_id) REFERENCES Movie(id),
+ 		FOREIGN KEY (artist_id) REFERENCES Artist(id)
+	);
+
